@@ -89,6 +89,32 @@ new MM({
 - Type : Object
 - Details : API Config.
 
+#### `api.baseUrl`
+
+- Type : String
+- Default : null
+
+#### `api.listUrl`
+
+- Type : String
+- Default : null
+
+#### `api.downloadUrl`
+
+- Type : String
+- Default : null
+
+#### `api.uploadUrl`
+
+- Type : String
+- Default : null
+
+#### `api.options`
+
+- Type : Object
+- Default : {}
+- Details : Will be used to create an [axios instance](https://github.com/mzabriskie/axios#creating-an-instance).
+
 ### `input`
 
 - Type : Object
