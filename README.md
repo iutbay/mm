@@ -11,6 +11,11 @@ This project use Javascript and :
 
 ## Features
 
+- [x] Backends (by using [flysystem](https://github.com/thephpleague/flysystem)) :
+  - [x] Local
+  - [x] FTP
+  - [x] SFTP
+  - [x] ... 
 - [x] Drag&drop file upload
 - [x] Multiple file upload
 - [x] Image preview
@@ -26,7 +31,13 @@ This project use Javascript and :
 
 ## Install
 
+...
 
+### Server
+
+Media Manager is a client side tool, it will display files located on a server, it needs a web service :
+- you can use a simple server : [mm-server](https://github.com/iutbay/mm-server),
+- or you can build your own, take a look at [API doc](doc/API.md).
 
 ## Usage
 
