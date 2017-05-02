@@ -1,6 +1,6 @@
 # Media Manager
 
-Media Manager is an open source web file manager and can be a nice alternative to CKFinder, KCFinder, elFinder...
+Media Manager is an open source web file manager and can be a nice alternative to Wordpress Media Manager, CKFinder, KCFinder, elFinder...
 
 This project use Javascript and :
 - [VueJS 2](https://github.com/vuejs/vue)
@@ -11,13 +11,106 @@ This project use Javascript and :
 
 ## Features
 
-- [x] Drag&drop file uploads
-- [x] Multiple file uploads
-- [x] Image previews
-- [x] Input widget
+- [x] Drag&drop file upload
+- [x] Multiple file upload
+- [x] Image preview
+- [x] Input option
 - [ ] Multilanguage
 - [ ] File actions :
   - [x] Preview
   - [x] Download
   - [ ] Rename
+  - [ ] Move
   - [ ] Delete
+  
+## Usage
+
+**HTML**
+```html
+<div id="media-manager"></div>
+```
+**JavaScript**
+```javascript
+new MM({
+    el: '#media-manager',
+    api: {
+        baseUrl: 'https://server.com/api/',
+        listUrl: 'list',
+        downloadUrl: 'download',  // optionnal
+        uploadUrl: 'upload',      // optionnal
+        deleteUrl: 'delete'       // optionnal
+    }
+});
+```
+
+### With input
+
+**HTML**
+```html
+<input type="text" id="file-input">
+<div id="media-manager"></div>
+```
+
+**JavaScript**
+```javascript
+new MM({
+    el: '#media-manager',
+    api: {
+        baseUrl: 'https://server.com/api/',
+        listUrl: 'list'
+    },
+    input: {
+        el: '#file-input',
+        multiple: false
+    }
+});
+```
+
+## Options
+
+### `el`
+
+- Type : String
+- Details : CSS selector string.
+
+### `basePath`
+
+- Type : String
+- Default : ""
+- Details : Base path with a trailing slash, e.g. "folder/".
+
+### `api`
+
+- Type : Object
+- Details : API Config.
+
+### `input`
+
+- Type : Object
+- Default : false
+- Details : Input config.
+
+#### `input.el`
+
+- Type : String
+- Details : CSS selector string.
+
+#### `input.multiple`
+
+- Type : Boolean
+
+### `showBreadcrumb`
+
+- Type : Boolean
+- Default : true
+
+### `height`
+
+- Type : String
+- Default : null
+- Details : Use this if you want a fixed height, e.g. '600px'.
+
+### `onSelect(event)`
+
+- Type : function
+- Details : Select callback, use `event.selected` to get selected files.
