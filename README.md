@@ -22,7 +22,12 @@ This project use Javascript and :
   - [ ] Rename
   - [ ] Move
   - [ ] Delete
-  
+- [ ] npm package
+
+## Install
+
+
+
 ## Usage
 
 **HTML**
