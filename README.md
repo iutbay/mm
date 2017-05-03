@@ -27,6 +27,7 @@ This project use Javascript and :
   - [ ] Rename
   - [ ] Move
   - [ ] Delete
+- [x] Context menu
 - [ ] npm package
 
 ## Install
