@@ -2,6 +2,8 @@
 
 Media Manager is an open source web file manager and can be a nice alternative to Wordpress Media Manager, CKFinder, KCFinder, elFinder...
 
+![screenshot](doc/images/mm01.jpg)
+
 This project use Javascript and :
 - [VueJS 2](https://github.com/vuejs/vue)
 - [Vuex](https://github.com/vuejs/vuex)
