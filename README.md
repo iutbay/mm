@@ -29,6 +29,10 @@ This project use Javascript and :
   - [ ] Delete
 - [x] Context menu
 - [ ] npm package
+- [ ] Integration :
+  - [ ] CKEditor plugin
+  - [ ] TinyMCE plugin
+  - [ ] Drupal module
 
 ## Install
 
