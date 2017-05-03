@@ -1,0 +1,34 @@
+{
+  "name": "mm",
+  "description": "Media Manager",
+  "version": "0.0.1",
+  "author": "Kevin LEVRON <kevin.levron@univ-pau.fr>",
+  "private": false,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 8080",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "dependencies": {
+    "vue": "^2.2.4",
+    "vuex": "^2.2.1",
+    "axios": "^0.15.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-latest": "^6.0.0",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.25.0",
+    "es6-promise": "^4.1.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.9.0",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^5.0.1",
+    "vue-loader": "^11.1.4",
+    "vue-style-loader": "^2.0.4",
+    "vue-template-compiler": "^2.2.1",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "2.4.2"
+  }
+}

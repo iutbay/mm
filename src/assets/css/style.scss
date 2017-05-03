@@ -1,0 +1,37 @@
+.panel-modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.5);
+
+    .panel {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 15px;
+        overflow: auto;
+    }
+    .panel-heading {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .panel-body {
+        position: absolute;
+        bottom: 0;
+        top: 41px;
+        left: 0;
+        right: 0;
+        overflow: auto;
+    }
+}
+
+.media-manager {
+    .btn {
+        border-radius: 0;
+    }
+}
