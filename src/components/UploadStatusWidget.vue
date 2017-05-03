@@ -53,7 +53,7 @@ export default {
             let upload;
             for (let i=0;i<this.uploads.length;i++) {
                 upload = this.uploads[i];
-                if (!upload.success && (upload.error || upload.loaded<upload.total))
+                if (!upload.success || (!upload.error && upload.loaded<upload.total))
                     return false;
             }
             return true;
