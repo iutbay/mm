@@ -2,13 +2,14 @@ var webpack = require('webpack')
 var path = require('path')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
+var PROD = (process.env.NODE_ENV === 'production')
+
 module.exports = {
   entry: './src/main.js',
-  // devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js',
+    filename: PROD ? 'mm.min.js' : 'mm.js',
     // https://github.com/webpack/webpack/issues/3929
     library: undefined,
     libraryTarget: 'umd'
@@ -38,11 +39,6 @@ module.exports = {
       }
     ]
   },
-  // resolve: {
-  //   alias: {
-  //     'vue$': 'vue/dist/vue.esm.js'
-  //   }
-  // },
   devServer: {
     historyApiFallback: true,
     noInfo: true
@@ -53,7 +49,7 @@ module.exports = {
   devtool: '#eval-source-map'
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (PROD) {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
@@ -71,7 +67,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
-    new ExtractTextPlugin("style.css")
+    new ExtractTextPlugin("mm.min.css")
   ])
   module.exports.module.rules[0].options.loaders = {
     'scss': ExtractTextPlugin.extract({
