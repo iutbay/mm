@@ -1,10 +1,11 @@
 # Media Manager
 
-Media Manager is an open source web file manager and can be a nice alternative to Wordpress Media Manager, CKFinder, KCFinder, elFinder...
+Media Manager is an open source web file manager and can be a nice alternative to Wordpress Media Manager, CKFinder, KCFinder, elFinder... It is still in its early stages, but feel free to use it.
 
 ![screenshot](doc/images/mm01.jpg)
 
 This project use Javascript and :
+- [Webpack](https://github.com/webpack/webpack)
 - [VueJS 2](https://github.com/vuejs/vue)
 - [Vuex](https://github.com/vuejs/vuex)
 - [Axios](https://github.com/mzabriskie/axios)
@@ -28,10 +29,14 @@ This project use Javascript and :
 - [x] Input option
 - [ ] Multilanguage
 - [ ] File actions :
-  - [x] Preview
+  - [x] Details
   - [x] Download
-  - [ ] Rename
-  - [ ] Move
+  - [ ] Rename / Move
+  - [ ] Delete
+- [ ] Folder actions :
+  - [x] Details
+  - [ ] Download
+  - [ ] Rename / Move
   - [ ] Delete
 - [x] Context menu
 - [ ] npm package
@@ -42,11 +47,16 @@ This project use Javascript and :
 
 ## Install
 
+### Client
+```
+<link href="mm.min.css" rel="stylesheet">
 ...
+<script src="mm.min.js"></script>
+```
 
 ### Server
 
-Media Manager is a client side tool, it will display files located on a server, it needs a web service :
+Media Manager is a client side tool, it will display files located on a server, it needs a web service to communicate with :
 - you can use a simple server : [mm-server](https://github.com/iutbay/mm-server),
 - or you can build your own, take a look at [API doc](doc/API.md).
 
