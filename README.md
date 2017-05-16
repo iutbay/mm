@@ -1,6 +1,6 @@
 # Media Manager
 
-Media Manager is an open source web file manager and can be a nice alternative to Wordpress Media Manager, CKFinder, KCFinder, elFinder... It is still in its early stages, but feel free to use it.
+Media Manager is an open source web file manager and can be a nice alternative to Wordpress Media Manager, CKFinder, KCFinder, elFinder... It is still in its early stages, but feel free to use it, report bugs and contribute.
 
 ![screenshot](doc/images/mm01.jpg)
 
@@ -162,6 +162,16 @@ new MM({
 
 - Type : Boolean
 
+### `selected`
+
+- Type : String|array
+- Details : Selected medias.
+
+### `onSelect(event)`
+
+- Type : function
+- Details : Select callback, use `event.selected` to get selected files.
+
 ### `showBreadcrumb`
 
 - Type : Boolean
@@ -172,8 +182,3 @@ new MM({
 - Type : String
 - Default : null
 - Details : Use this if you want a fixed height, e.g. '600px'.
-
-### `onSelect(event)`
-
-- Type : function
-- Details : Select callback, use `event.selected` to get selected files.
