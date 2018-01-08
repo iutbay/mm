@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="/dist/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <p></p>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Single</h3>
+                <div class="form-group">
+                    <div id="media-manager-1"></div>
+                </div>
+                <div class="form-group">
+                    <input id="file-input-1" type="text" class="form-control" placeholder="File">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Multiple</h3>
+                <div class="form-group">
+                    <div id="media-manager-3"></div>
+                </div>
+                <div class="form-group">
+                    <textarea id="file-input-3" class="form-control" placeholder="Files"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-push-3 col-md-6">
+                <h3>Modal</h3>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input id="file-input-2" type="text" class="form-control" placeholder="File">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#media-manager-modal"><i class="fa fa-folder-open"></i> Browse</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="media-manager-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Media Manager</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="media-manager-2"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="/dist/mm.js"></script>
+
+    <script type="text/javascript">
+        /* global MM, $ */
+        var mm1, mm2, mm3;
+
+        var api = {
+            baseUrl: 'http://127.0.0.1/mm-server/web/api/',
+            listUrl: 'list',
+            downloadUrl: 'download',
+            uploadUrl: 'upload'
+        };
+
+        mm1 = new MM({
+            el: '#media-manager-1',
+            api: api,
+            input: {
+                el: '#file-input-1',
+                multiple: false
+            }
+        });
+
+        mm3 = new MM({
+            el: '#media-manager-3',
+            basePath: '/',
+            api: api,
+            input: {
+                el: '#file-input-3',
+                multiple: true
+            },
+            height: '400px'
+        }); 
+
+        $('#media-manager-modal').on('show.bs.modal', function (e) {
+            mm2 = new MM({
+                el: '#media-manager-2',
+                path: '/',
+                api: api,
+                input: {
+                    el: '#file-input-2',
+                    multiple: false
+                },
+                height: '400px',
+                onSelect: function(e) {
+                    $('#media-manager-modal').modal('hide');
+                }
+            });
+        });
+        $('#media-manager-modal').on('hide.bs.modal', function (e) {
+            mm2.destroy();
+        });
+
+    </script>
+
+</body>
+
+</html>
