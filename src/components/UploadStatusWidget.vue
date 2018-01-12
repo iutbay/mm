@@ -15,7 +15,7 @@
                             <tr v-for="(upload, index) in uploads">
                                 <th v-html="$options.filters.truncate(upload.name)"></th>
                                 <td>
-                                    <div class="progress" v-bind:key="upload">
+                                    <div class="progress" v-bind:key="index">
                                         <div
                                             v-bind:class="{ 'progress-bar-success': upload.success, 'progress-bar-danger': upload.error }"
                                             v-bind:style="'width: '+uploadPercent(upload)+'%;'"
