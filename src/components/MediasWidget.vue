@@ -43,7 +43,7 @@
                         v-on:click.native="onMediaClick(file)"
                         v-on:contextmenu.native.prevent="onContextMenu(file, $event)"
                         v-bind:file="file"
-                        v-bind:key="file"
+                        v-bind:key="file.path"
                         class="animated fadeIn"
                     ></media-widget>
 
