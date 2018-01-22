@@ -46,7 +46,7 @@
                 <div class="mm-content">
 
                     <upload-widget
-                        v-if="options.api.uploadUrl"
+                        v-if="$api.options.uploadUrl"
                         v-bind:path="path"
                         v-show="showUpload"
                         v-on:upload-success="onUploadSuccess"
@@ -151,11 +151,6 @@ export default {
         },
         isSelected(file) {
             return this.$store.getters.isSelected(file);
-        },
-
-        downloadLink(file) {
-            if (this.options.api.downloadUrl)
-                return this.options.api.downloadUrl+'?path='+file.path;
         },
 
         toggleUploadStatusOn() {

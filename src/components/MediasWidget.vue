@@ -43,7 +43,7 @@
                         v-on:click.native="onMediaClick(file)"
                         v-on:contextmenu.native.prevent="onContextMenu(file, $event)"
                         v-bind:file="file"
-                        v-bind:key="file"
+                        v-bind:key="file.path"
                         class="animated fadeIn"
                     ></media-widget>
 
@@ -57,10 +57,10 @@
                         <li><a v-on:click.prevent="mmc.toggleDetailsOn(contextMenuFile)" href="#"><i class="fa fa-fw fa-info-circle"></i> Details</a></li>
                     </ul>
                     <ul v-else>
-                        <li><a v-on:click.prevent="mmc.toggleDetailsOn(contextMenuFile)" href="#"><i class="fa fa-fw fa-info-circle"></i> Details</a></li>
-                        <li><a v-bind:href="mmc.downloadLink(contextMenuFile)"><i class="fa fa-fw fa-download"></i> Download</a></li>
                         <li v-if="mmc.isSelected(contextMenuFile)"><a v-on:click.prevent="mmc.unselectFile(contextMenuFile)" href="#"><i class="fa fa-fw fa-times"></i> Unselect</a></li>
                         <li v-else><a v-on:click.prevent="mmc.selectFile(contextMenuFile)" href="#"><i class="fa fa-fw fa-check"></i> Select</a></li>
+                        <li><a v-on:click.prevent="mmc.toggleDetailsOn(contextMenuFile)" href="#"><i class="fa fa-fw fa-info-circle"></i> Details</a></li>
+                        <li><a v-bind:href="$api.downloadUrl(contextMenuFile)"><i class="fa fa-fw fa-download"></i> Download</a></li>
                     </ul>
                 </div>
             </transition>
@@ -92,9 +92,7 @@ export default {
     props: [ 'path' ],
     computed: {
         ...mapState({
-            mm: 'mm',
-            basePath: state => state.options.basePath,
-            listUrl: state => state.options.api.listUrl
+            basePath: state => state.options.basePath
         }),
         mmc() {
             return this.$root.$mmc;
@@ -125,7 +123,8 @@ export default {
         refresh() {
             this.loading = true;
             this.error = false;
-            this.mm.api.get(this.listUrl, { params: { path: this.path } })
+            
+            this.$api.list(this.path)
                 .then(response => {
                     if (Array.isArray(response.data)) {
                         response.data.sort((a, b) => {

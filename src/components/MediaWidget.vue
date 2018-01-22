@@ -25,7 +25,7 @@
         <!--<div v-if="file.type!='dir'" class="file-actions">-->
         <!--    <div class="btn-group btn-group-xs" role="group">-->
         <!--        <button v-if="isSelected" v-on:click.stop="onUnselect" class="btn btn-default"><i class="fa fa-fw fa-check-square-o"></i></button>-->
-        <!--        <button v-else v-on:click.stop="onSelect" class="btn btn-default"><i class="fa fa-fw fa-square-o"></i></i></button>-->
+        <!--        <button v-else v-on:click.stop="onSelect" class="btn btn-default"><i class="fa fa-fw fa-square-o"></i></button>-->
         <!--        <button class="btn btn-default"><i class="fa fa-fw fa-search-plus"></i></button>-->
         <!--    </div>-->
         <!--</div>-->
@@ -44,9 +44,6 @@ import { mapState } from 'vuex';
 export default {
     props: [ 'file' ],
     computed: {
-        // ...mapState({
-        //     mm: 'mm'
-        // }),
         mmc() {
             return this.$root.$mmc;
         }
@@ -57,40 +54,51 @@ export default {
 </script>
 
 <style lang="scss">
-$fileWidth: 75px;
-$fileHeight: $fileWidth;
+$fileWidth: 70px;
+$fileBorderWidth: 2px;
+$filePreviewHeight: 60px;
+$filePreviewPadding: 4px;
+$filePreviewDiff: 2*($fileBorderWidth+$filePreviewPadding);
+$filePreviewIconHeight: $filePreviewHeight - $filePreviewDiff;
+$fileTitleHeight: 20px;
+$fileHeight: $filePreviewHeight + $fileTitleHeight;
+$fileBorderColor: #eee;
+$fileBorderColorH: #333;
 
 .file {
     position: relative;
     float: left;
     width: $fileWidth;
-    padding: 5px;
+    height: $fileHeight;
     cursor: pointer;
-    border: 1px solid #eee;
+    border: $fileBorderWidth solid $fileBorderColor;
     transition: border-color 0.4s;
-
-    &.selected {
-        border-color: #000;
-    }
+    overflow: hidden;
 }
 
 .file-preview {
-    height: $fileHeight;
-    overflow: hidden;
+    padding: 4px;
     .thumb {
         width: 100%;
+        margin-top: -(($fileWidth - $filePreviewHeight)/2);
     }
     .icon {
         text-align: center;
-        line-height: $fileHeight;
-        font-size: $fileHeight / 2;
+        line-height: $filePreviewIconHeight;
+        font-size: ($filePreviewIconHeight) / 1.3;
         .fa {
-
+            vertical-align: middle;
         }
     }
-
 }
 
+.file-no-title {
+    .icon {
+        line-height: $fileHeight - $filePreviewDiff;
+    }
+}
+
+/*
 .file-actions {
     display: none;
     position: absolute;
@@ -107,6 +115,7 @@ $fileHeight: $fileWidth;
         display: block;
     }
 }
+*/
 
 .file-title {
     position: absolute;
@@ -115,15 +124,25 @@ $fileHeight: $fileWidth;
     bottom: 0;
     left: 0;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
+    background-color: $fileBorderColor;
+    transition: background-color 0.4s;
 
     h3 {
-        color: #fff;
+        color: #000;
         margin: 0 4px;
-        line-height: 20px;
-        font-size: 10px;
+        line-height: $fileTitleHeight;
+        font-size: $fileTitleHeight/2;
+        transition: color 0.4s;
     }
+}
 
+.file.selected {
+    border-color: $fileBorderColorH;
+    .file-title {
+        background-color: $fileBorderColorH;
+        h3 {
+            color: #fff;
+        }
+    }
 }
 </style>

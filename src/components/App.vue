@@ -9,23 +9,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import MediaManager from './MediaManager.vue';
 
 export default {
     components: { MediaManager },
     props: [ 'id' ],
-    computed: {
-        ...mapState({
-            mm: 'mm'
-        })
-    },
     created() {
         this.$root.id = this.id;
-        this.mm.onCreated({ vc: this });
+        this.$mm.onCreated({ vc: this });
     },
     mounted() {
-        this.mm.onMounted({ el: this.$el, vc: this });
+        this.$mm.onMounted({ el: this.$el, vc: this });
     }
 };
 </script>        

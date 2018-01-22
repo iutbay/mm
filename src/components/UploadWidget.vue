@@ -49,10 +49,6 @@ export default {
     },
     props: ['path'],
     computed: {
-        ...mapState({
-            mm: 'mm',
-            uploadUrl: state => state.options.api.uploadUrl
-        }),
         mmc() {
           return this.$root.$mmc;
         },
@@ -146,7 +142,7 @@ export default {
             formData.append('path', this.path);
             formData.append('file', file);
 
-            return this.mm.api.post(this.uploadUrl, formData, {
+            return this.$api.upload(formData, {
                 onUploadProgress: progressEvent => {
                    let upload = this.mmc.uploads[file.index];
                    upload.loaded = progressEvent.loaded;

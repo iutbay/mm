@@ -1,9 +1,9 @@
-/* global toastr */
 import 'es6-promise/auto';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
 import App from './components/App.vue';
+
+import Api from './api.js';
 
 /**
  * Media Manager
@@ -13,6 +13,7 @@ export class MM {
     static get defaultOptions() {
         return {
             basePath: '',
+            path: '',
             api: {
                 baseUrl: null,
                 listUrl: null,
@@ -30,13 +31,13 @@ export class MM {
     }
 
     constructor(opts) {
-        this.options = Object.assign({}, this.constructor.defaultOptions, opts);
+        this.options = { ...this.constructor.defaultOptions, ...opts };
         this.init();
     }
 
     init() {
 
-        /**
+        /*
          * Input options ?
          */
         if (this.options.input) {
@@ -46,14 +47,24 @@ export class MM {
             };
         }
 
-        /**
-         * Init axios instance
+        /*
+         * Init selected
          */
-        let axiosOptions = Object.assign({}, this.options.api.options);
-        if (this.options.api.baseUrl) {
-            axiosOptions.baseURL = this.options.api.baseUrl;
+        let selected = this.options.selected;
+        if (selected) {
+            if (Array.isArray(selected)) {
+                selected = selected.map(function(e){
+                    return { path: e };
+                });
+            } else {
+                selected = { path: selected };
+            }
         }
-        this.api = axios.create(axiosOptions);
+
+        /*
+         * Init api
+         */
+        Vue.prototype.$api = new Api(this.options.api);
 
         /*
          * Init Vuex
@@ -64,7 +75,8 @@ export class MM {
             state: {
                 mm,
                 options: this.options,
-                selected: null
+                path: this.options.basePath + this.options.path,
+                selected: selected
             },
             mutations: {
                 resetSelected(state) {
@@ -106,13 +118,20 @@ export class MM {
                     } else {
                         return (state.selected && state.selected.path === file.path);
                     }
+                },
+                nbSelected: (state, getters) => {
+                    if (Array.isArray(state.selected)) return state.selected.length;
+                    if (state.selected) return 1;
+                    return 0;
                 }
             }
         });
 
-        /**
+
+        /*
          * Init Vue
          */
+        Vue.prototype.$mm = this;
         let el = document.querySelector(this.options.el);
         this.vm = new Vue({
             el: this.options.el,
