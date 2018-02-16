@@ -73,9 +73,9 @@ new MM({
     api: {
         baseUrl: 'https://server.com/api/',
         listUrl: 'list',
-        downloadUrl: 'download',  // optionnal
-        uploadUrl: 'upload',      // optionnal
-        deleteUrl: 'delete'       // optionnal
+        downloadUrl: 'download',  // optional
+        uploadUrl: 'upload',      // optional
+        deleteUrl: 'delete'       // optional
     }
 });
 ```
