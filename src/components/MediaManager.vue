@@ -46,7 +46,7 @@
                 <div class="mm-content">
 
                     <upload-widget
-                        v-if="$api.options.uploadUrl"
+                        v-if="api.options.uploadUrl"
                         v-bind:path="path"
                         v-show="showUpload"
                         v-on:upload-success="onUploadSuccess"
@@ -122,10 +122,15 @@ export default {
             }
 
             return breadcrumb;
+        },
+        api () {
+            return this.$parent.api;
+        },
+        id () {
+            return this.$parent.id;
         }
     },
     created() {
-        this.$root.$mmc = this;
     },
     methods: {
 

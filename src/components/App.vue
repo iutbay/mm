@@ -10,19 +10,27 @@
 
 <script>
 import MediaManager from './MediaManager.vue';
+import Api from '../api.js';
 
 export default {
     components: { MediaManager },
-    props: [ 'id' ],
+    props: [ 'id', 'options' ],
     created() {
-        this.$root.id = this.id;
-        this.$mm.onCreated({ vc: this });
+
+        /*
+         * Init api
+         */
+        this.api = new Api(this.options.api);
+
+        if (this.options.onCreated)
+            this.options.onCreated({ vc: this });
     },
     mounted() {
-        this.$mm.onMounted({ el: this.$el, vc: this });
+        if (this.options.onMounted)
+            this.options.onMounted({ el: this.$el, vc: this });
     }
 };
-</script>        
+</script>
 
 <style src="../assets/css/style.scss" lang="scss">
 </style>

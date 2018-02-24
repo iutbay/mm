@@ -3,12 +3,15 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './components/App.vue';
 
-import Api from './api.js';
-
 /**
  * Media Manager
  */
 export class MM {
+
+    static install (Vue, options) {
+        options.vue = Vue;
+        var instance = new MM(options);
+    }
 
     static get defaultOptions() {
         return {
@@ -26,7 +29,9 @@ export class MM {
             onMounted: null,
             onSelect: null,
             showBreadcrumb: true,
-            height: null
+            height: null,
+            vue: Vue,
+            asVueComponenet: false
         };
     }
 
@@ -60,11 +65,6 @@ export class MM {
                 selected = { path: selected };
             }
         }
-
-        /*
-         * Init api
-         */
-        Vue.prototype.$api = new Api(this.options.api);
 
         /*
          * Init Vuex
@@ -131,25 +131,17 @@ export class MM {
         /*
          * Init Vue
          */
-        Vue.prototype.$mm = this;
         let el = document.querySelector(this.options.el);
         this.vm = new Vue({
             el: this.options.el,
             store,
             render: h => h(App, {
-                props: { id: el.id }
+                props: {
+                    id: el.id,
+                    options: this.options
+                }
             })
         });
-    }
-
-    onCreated(e) {
-        if (this.options.onCreated)
-            this.options.onCreated(e);
-    }
-
-    onMounted(e) {
-        if (this.options.onMounted)
-            this.options.onMounted(e);
     }
 
     onSelect(e) {

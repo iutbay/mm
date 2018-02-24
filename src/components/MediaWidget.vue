@@ -45,7 +45,7 @@ export default {
     props: [ 'file' ],
     computed: {
         mmc() {
-            return this.$root.$mmc;
+            return this.$parent.$parent;
         }
     },
     methods: {
