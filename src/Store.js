@@ -16,7 +16,7 @@ export default class Store {
 
         return {
             state: {
-                component,
+                mm: component,
                 options: options,
                 path: options.basePath + options.path,
                 selected: selected
