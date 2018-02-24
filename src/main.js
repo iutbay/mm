@@ -2,6 +2,7 @@ import 'es6-promise/auto';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './components/App.vue';
+import Store from './Store'
 
 /**
  * Media Manager
@@ -53,80 +54,11 @@ export class MM {
         }
 
         /*
-         * Init selected
-         */
-        let selected = this.options.selected;
-        if (selected) {
-            if (Array.isArray(selected)) {
-                selected = selected.map(function(e){
-                    return { path: e };
-                });
-            } else {
-                selected = { path: selected };
-            }
-        }
-
-        /*
          * Init Vuex
          */
         let mm = this;
         Vue.use(Vuex);
-        const store = new Vuex.Store({
-            state: {
-                mm,
-                options: this.options,
-                path: this.options.basePath + this.options.path,
-                selected: selected
-            },
-            mutations: {
-                resetSelected(state) {
-                    state.selected = null;
-                },
-                addSelected(state, file) {
-                    if (state.options.input.multiple) {
-                        if (!Array.isArray(state.selected)) {
-                            state.selected = [];
-                        } else {
-                            let index = state.selected.findIndex(element => { return element.path === file.path; });
-                            if (index>-1) return;
-                        }
-                        state.selected.push(file);
-                    } else {
-                        state.selected = file;
-                    }
-                    state.mm.onSelect({ selected: state.selected });
-                },
-                removeSelected(state, file) {
-                    if (state.options.input.multiple) {
-                        if (!Array.isArray(state.selected)) return;
-                        let index = state.selected.findIndex(element => { return element.path === file.path; });
-                        if (index>-1)
-                            state.selected.splice(index, 1);
-                    } else {
-                        state.selected = null;
-                    }
-                    state.mm.onSelect({ selected: state.selected });
-                }
-            },
-            getters: {
-                isSelected: (state, getters) => (file) => {
-                    //if (!state.options.input) return false;
-                    if (state.options.input.multiple) {
-                        if (!Array.isArray(state.selected)) return;
-                        let index = state.selected.findIndex(element => { return element.path === file.path; });
-                        return index > -1;
-                    } else {
-                        return (state.selected && state.selected.path === file.path);
-                    }
-                },
-                nbSelected: (state, getters) => {
-                    if (Array.isArray(state.selected)) return state.selected.length;
-                    if (state.selected) return 1;
-                    return 0;
-                }
-            }
-        });
-
+        const store = new Vuex.Store(Store.create(this, this.options));
 
         /*
          * Init Vue
@@ -138,7 +70,8 @@ export class MM {
             render: h => h(App, {
                 props: {
                     id: el.id,
-                    options: this.options
+                    options: this.options,
+                    store
                 }
             })
         });

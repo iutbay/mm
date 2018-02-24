@@ -82,6 +82,7 @@ import DetailsWidget from './DetailsWidget.vue';
 import NotificationWidget from './NotificationWidget.vue';
 
 export default {
+    props: ['api', 'id'],
     components: {
         MediasWidget,
         UploadWidget,
@@ -122,12 +123,6 @@ export default {
             }
 
             return breadcrumb;
-        },
-        api () {
-            return this.$parent.api;
-        },
-        id () {
-            return this.$parent.id;
         }
     },
     created() {

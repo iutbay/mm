@@ -2,21 +2,21 @@
 
     <div class="media-manager" v-bind:id="id">
 
-        <media-manager></media-manager>
+        <div ref="mediaManager"></div>
 
     </div>
 
 </template>
 
 <script>
+import Vue from 'vue';
 import MediaManager from './MediaManager.vue';
 import Api from '../api.js';
 
 export default {
     components: { MediaManager },
-    props: [ 'id', 'options' ],
+    props: [ 'id', 'options' , 'store'],
     created() {
-
         /*
          * Init api
          */
@@ -28,6 +28,19 @@ export default {
     mounted() {
         if (this.options.onMounted)
             this.options.onMounted({ el: this.$el, vc: this });
+        
+        var mediaManager = this.$refs.mediaManager
+
+        new Vue({
+            el: mediaManager,
+            store: this.store,
+            render: h => h(MediaManager, {
+                props: {
+                    id: this.id,
+                    api: this.api
+                }
+            })
+        });
     }
 };
 </script>
