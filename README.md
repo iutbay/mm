@@ -150,18 +150,14 @@ new MM({
 
 ### `input`
 
-- Type : Object
-- Default : false
-- Details : Input config.
-
-#### `input.el`
-
 - Type : String
 - Details : CSS selector string.
+- Default : empty string
 
-#### `input.multiple`
+### `multipleSelection`
 
 - Type : Boolean
+- Default : false
 
 ### `selected`
 

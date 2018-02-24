@@ -7,9 +7,8 @@ import App from './components/App.vue';
  */
 export class MM {
 
-    static install (Vue, options) {
-        options.vue = Vue;
-        var instance = new MM(options);
+    static install (vue, options) {
+        vue.component('vue-media-manager', App)
     }
 
     constructor(opts) {

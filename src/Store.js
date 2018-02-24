@@ -26,7 +26,7 @@ export default class Store {
                     state.selected = null;
                 },
                 addSelected(state, file) {
-                    if (state.options.input.multiple) {
+                    if (state.options.multipleSelection) {
                         if (!Array.isArray(state.selected)) {
                             state.selected = [];
                         } else {
@@ -40,7 +40,7 @@ export default class Store {
                     state.mm.onSelect({ selected: state.selected });
                 },
                 removeSelected(state, file) {
-                    if (state.options.input.multiple) {
+                    if (state.options.multipleSelection) {
                         if (!Array.isArray(state.selected)) return;
                         let index = state.selected.findIndex(element => { return element.path === file.path; });
                         if (index>-1)
@@ -54,7 +54,7 @@ export default class Store {
             getters: {
                 isSelected: (state, getters) => (file) => {
                     //if (!state.options.input) return false;
-                    if (state.options.input.multiple) {
+                    if (state.options.multipleSelection) {
                         if (!Array.isArray(state.selected)) return;
                         let index = state.selected.findIndex(element => { return element.path === file.path; });
                         return index > -1;

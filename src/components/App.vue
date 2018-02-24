@@ -27,7 +27,8 @@ const defaultOptions = {
         uploadUrl: null,
         options: {}
     },
-    input: false,
+    input: '',
+    multipleSelection: false,
     onCreated: null,
     onMounted: null,
     onSelect: null,
@@ -55,10 +56,7 @@ export default {
          * Input options ?
          */
         if (this.options.input) {
-            this.input = {
-                el: document.querySelector(this.options.input.el),
-                multiple: this.options.input.multiple
-            };
+            this.input = document.querySelector(this.options.input);
         }
     },
     computed: {
@@ -70,14 +68,14 @@ export default {
         onSelect(e) {
             if (this.input) {
                 if (e.selected) {
-                    if (this.input.multiple) {
+                    if (this.options.multipleSelection) {
                         let selected = e.selected.map(element => { return element.path; });
-                        this.input.el.value = selected.join("\n");
+                        this.input.value = selected.join("\n");
                     } else {
-                        this.input.el.value = e.selected.path;
+                        this.input.value = e.selected.path;
                     }
                 } else {
-                    this.input.el.value = '';
+                    this.input.value = '';
                 }
             }
 
