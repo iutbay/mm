@@ -39,8 +39,8 @@ This project use Javascript and :
   - [ ] Rename / Move
   - [ ] Delete
 - [x] Context menu
-- [ ] vuejs component
-- [ ] npm package
+- [x] vuejs component
+- [x] npm package
 - [ ] Integration :
   - [ ] CKEditor plugin
   - [ ] TinyMCE plugin
