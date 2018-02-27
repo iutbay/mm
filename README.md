@@ -174,7 +174,7 @@ this.options = {
 - Type : String
 - Default : null
 
-#### `api.options`
+#### `api.axiosOptions`
 
 - Type : Object
 - Default : {}
