@@ -174,6 +174,12 @@ this.options = {
 - Type : String
 - Default : null
 
+#### `api.requestConfig`
+
+- Type : Object or Function
+- Default : null
+- Details : Will be used on each request to override the config passed to axios.
+
 #### `api.axiosOptions`
 
 - Type : Object

@@ -23,11 +23,24 @@ export default class Api {
     }
 
     list(path) {
-        return this.axios.get(this.options.listUrl, { params: { path: path } });
+        var conf = this.computeConfig({ params: { path: path } });
+        return this.axios.get(this.options.listUrl, conf);
     }
 
     upload(data, config) {
-        return this.axios.post(this.options.uploadUrl, data, config);
+        var conf = this.computeConfig(config);
+        return this.axios.post(this.options.uploadUrl, data, conf);
+    }
+
+    computeConfig(conf) {
+        if (!this.options.requestConfig) {
+            return conf
+        }
+        var overrideConf = this.options.requestConfig
+        if (overrideConf instanceof Function) {
+            overrideConf = overrideConf()
+        }
+        return { ...conf, ...overrideConf }
     }
 
     downloadUrl(file) {
