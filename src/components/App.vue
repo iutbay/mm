@@ -52,16 +52,20 @@ export default {
         if (this.options.onCreated)
             this.options.onCreated({ vc: this });
 
-        /*
-         * Input options ?
-         */
-        if (this.options.input) {
-            this.input = document.querySelector(this.options.input);
-        }
+        this._input = null;
     },
     computed: {
         overrideOptions () {
             return { ...defaultOptions, ...this.options }
+        },
+        input () {
+            /*
+            * Input options ?
+            */
+            if (!this._input && this.options.input) {
+                this._input = document.querySelector(this.options.input);
+            }
+            return this._input;
         }
     },
     methods: {
