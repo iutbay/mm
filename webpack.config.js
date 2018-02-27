@@ -91,12 +91,6 @@ module.exports = {
     performance: {
         hints: false
     },
-    externals: {
-        'vue' : 'vue',
-        'vuex' : 'vuex',
-        'axios' : 'axios',
-        'es6-promise/auto': 'es6-promise/auto'
-    },
     devtool: '#eval-source-map'
 }
 
@@ -120,4 +114,10 @@ if (PROD) {
         }),
         new ExtractTextPlugin('style.css')
     ])
+    module.exports.externals = {
+        'vue' : 'vue',
+        'vuex' : 'vuex',
+        'axios' : 'axios',
+        'es6-promise/auto': 'es6-promise/auto'
+    }
 }
