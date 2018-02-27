@@ -50,10 +50,13 @@ export default {
     props: ['path'],
     computed: {
         mmc() {
-          return this.$root.$mmc;
+          return this.$parent;
+        },
+        api () {
+            return this.mmc.api;
         },
         fileInputId() {
-            return this.$root.id+'-file-input';
+            return this.mmc.id+'-file-input';
         }
     },
     mounted() {
@@ -142,7 +145,7 @@ export default {
             formData.append('path', this.path);
             formData.append('file', file);
 
-            return this.$api.upload(formData, {
+            return this.api.upload(formData, {
                 onUploadProgress: progressEvent => {
                    let upload = this.mmc.uploads[file.index];
                    upload.loaded = progressEvent.loaded;

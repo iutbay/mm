@@ -114,4 +114,10 @@ if (PROD) {
         }),
         new ExtractTextPlugin('style.css')
     ])
+    module.exports.externals = {
+        'vue' : 'vue',
+        'vuex' : 'vuex',
+        'axios' : 'axios',
+        'es6-promise/auto': 'es6-promise/auto'
+    }
 }

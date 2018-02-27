@@ -47,7 +47,7 @@ export default {
     props: [ 'uploads' ],
     computed: {
         mmc() {
-          return this.$root.$mmc;
+          return this.$parent;
         },
         completed() {
             let upload;

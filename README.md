@@ -39,8 +39,8 @@ This project use Javascript and :
   - [ ] Rename / Move
   - [ ] Delete
 - [x] Context menu
-- [ ] vuejs component
-- [ ] npm package
+- [x] vuejs component
+- [x] npm package
 - [ ] Integration :
   - [ ] CKEditor plugin
   - [ ] TinyMCE plugin
@@ -55,13 +55,25 @@ This project use Javascript and :
 <script src="mm.min.js"></script>
 ```
 
+or
+```
+npm install mm
+```
+
+and
+
+```
+import { MM } from 'mm'
+require('mm/dist/style.css')
+```
+
 ### Server
 
 Media Manager is a client side tool, it will display files located on a server, it needs a web service to communicate with :
 - you can use a simple server : [mm-server](https://github.com/iutbay/mm-server),
 - or you can build your own, take a look at [API doc](doc/API.md).
 
-## Usage
+## Usage in pure JavaScript
 
 **HTML**
 ```html
@@ -97,11 +109,31 @@ new MM({
         baseUrl: 'https://server.com/api/',
         listUrl: 'list'
     },
-    input: {
-        el: '#file-input',
-        multiple: false
-    }
+    multipleSelection: false,
+    input: '#file-input'
 });
+```
+
+## Usage in a VueJS project
+
+**Vue**
+```html
+<vue-media-manager :opts="options"></vue-media-manager>
+```
+
+```javascript
+var api = {
+    baseUrl: 'https://server.com/api/',
+    listUrl: 'list'
+};
+
+this.options = {
+    api: api,
+    multipleSelection: true,
+    onSelect: function ({selected}) {
+        console.log(selected)
+    }
+}
 ```
 
 ## Options
@@ -109,7 +141,7 @@ new MM({
 ### `el`
 
 - Type : String
-- Details : CSS selector string.
+- Details : CSS selector string. Only in pure JavaScript.
 
 ### `basePath`
 
@@ -142,7 +174,13 @@ new MM({
 - Type : String
 - Default : null
 
-#### `api.options`
+#### `api.requestConfig`
+
+- Type : Object or Function
+- Default : null
+- Details : Will be used on each request to override the config passed to axios.
+
+#### `api.axiosOptions`
 
 - Type : Object
 - Default : {}
@@ -150,18 +188,14 @@ new MM({
 
 ### `input`
 
-- Type : Object
-- Default : false
-- Details : Input config.
-
-#### `input.el`
-
 - Type : String
 - Details : CSS selector string.
+- Default : empty string
 
-#### `input.multiple`
+### `multipleSelection`
 
 - Type : Boolean
+- Default : false
 
 ### `selected`
 

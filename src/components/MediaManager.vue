@@ -46,7 +46,7 @@
                 <div class="mm-content">
 
                     <upload-widget
-                        v-if="$api.options.uploadUrl"
+                        v-if="api.options.uploadUrl"
                         v-bind:path="path"
                         v-show="showUpload"
                         v-on:upload-success="onUploadSuccess"
@@ -82,6 +82,7 @@ import DetailsWidget from './DetailsWidget.vue';
 import NotificationWidget from './NotificationWidget.vue';
 
 export default {
+    props: ['api', 'id'],
     components: {
         MediasWidget,
         UploadWidget,
@@ -125,7 +126,6 @@ export default {
         }
     },
     created() {
-        this.$root.$mmc = this;
     },
     methods: {
 

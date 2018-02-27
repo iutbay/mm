@@ -60,7 +60,7 @@
                         <li v-if="mmc.isSelected(contextMenuFile)"><a v-on:click.prevent="mmc.unselectFile(contextMenuFile)" href="#"><i class="fa fa-fw fa-times"></i> Unselect</a></li>
                         <li v-else><a v-on:click.prevent="mmc.selectFile(contextMenuFile)" href="#"><i class="fa fa-fw fa-check"></i> Select</a></li>
                         <li><a v-on:click.prevent="mmc.toggleDetailsOn(contextMenuFile)" href="#"><i class="fa fa-fw fa-info-circle"></i> Details</a></li>
-                        <li><a v-bind:href="$api.downloadUrl(contextMenuFile)"><i class="fa fa-fw fa-download"></i> Download</a></li>
+                        <li><a v-bind:href="api.downloadUrl(contextMenuFile)"><i class="fa fa-fw fa-download"></i> Download</a></li>
                     </ul>
                 </div>
             </transition>
@@ -95,7 +95,10 @@ export default {
             basePath: state => state.options.basePath
         }),
         mmc() {
-            return this.$root.$mmc;
+            return this.$parent;
+        },
+        api () {
+            return this.mmc.api;
         },
         relPath() {
             return this.path.replace(this.basePath, '');
@@ -124,7 +127,7 @@ export default {
             this.loading = true;
             this.error = false;
             
-            this.$api.list(this.path)
+            this.api.list(this.path)
                 .then(response => {
                     if (Array.isArray(response.data)) {
                         response.data.sort((a, b) => {

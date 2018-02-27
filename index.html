@@ -18,7 +18,7 @@
     <div class="container">
         <p></p>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <h3>Single</h3>
                 <div class="form-group">
                     <div id="media-manager-1"></div>
@@ -27,13 +27,19 @@
                     <input id="file-input-1" type="text" class="form-control" placeholder="File">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <h3>Multiple</h3>
                 <div class="form-group">
                     <div id="media-manager-3"></div>
                 </div>
                 <div class="form-group">
                     <textarea id="file-input-3" class="form-control" placeholder="Files"></textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>VueApp</h3>
+                <div class="form-group">
+                    <vue-app></vue-app>
                 </div>
             </div>
         </div>
@@ -75,6 +81,7 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="/dist/mm.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.2.4/vue.js"></script>
 
     <script type="text/javascript">
         /* global MM, $ */
@@ -90,20 +97,16 @@
         mm1 = new MM({
             el: '#media-manager-1',
             api: api,
-            input: {
-                el: '#file-input-1',
-                multiple: false
-            }
+            input: '#file-input-1',
+            multipleSelection: false
         });
 
         mm3 = new MM({
             el: '#media-manager-3',
             basePath: '/',
             api: api,
-            input: {
-                el: '#file-input-3',
-                multiple: true
-            },
+            input: '#file-input-3',
+            multipleSelection: true,
             height: '400px'
         }); 
 
@@ -112,18 +115,38 @@
                 el: '#media-manager-2',
                 path: '/',
                 api: api,
-                input: {
-                    el: '#file-input-2',
-                    multiple: false
-                },
-                height: '400px',
-                onSelect: function(e) {
-                    $('#media-manager-modal').modal('hide');
-                }
+                input: '#file-input-2',
+                multipleSelection: false,
+                height: '400px'
             });
         });
         $('#media-manager-modal').on('hide.bs.modal', function (e) {
             mm2.destroy();
+        });
+
+        Vue.use(MM);
+
+        new Vue({
+            el: 'vue-app',
+            render: h => h({
+                template: `<vue-media-manager :opts="options"></vue-media-manager>`,
+                created() {
+                    var api = {
+                        baseUrl: 'http://localhost:8081/',
+                        listUrl: 'list.json',
+                        downloadUrl: 'download',
+                        uploadUrl: 'upload'
+                    };
+
+                    this.options = {
+                        api: api,
+                        multipleSelection: true,
+                        onSelect: function ({selected}) {
+                            console.log(selected)
+                        }
+                    }
+                },
+            })
         });
 
     </script>
