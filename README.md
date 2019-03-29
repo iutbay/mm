@@ -27,7 +27,7 @@ This project use Javascript and :
 - [x] Multiple file upload
 - [x] Image preview
 - [x] Input option
-- [ ] Multilanguage
+- [x] Multilanguage
 - [ ] File actions :
   - [x] Details
   - [x] Download
@@ -100,6 +100,22 @@ new MM({
     input: {
         el: '#file-input',
         multiple: false
+    },
+    lang:{
+        choose_files: 'Choose files or drag it here.',
+        choose_files_error: 'Your browser does not support drag & drop file upload.',
+        media_details: 'Media Details',
+        details: 'Detail',
+        name: 'Name',
+        path: 'Path',
+        date: 'Date',
+        size: 'Size',
+        download: 'Download',
+        unselect: 'Unselect',
+        select: 'Select',
+        open: 'Open',
+        close: 'Close',
+        retry: 'Click here to retry'
     }
 });
 ```

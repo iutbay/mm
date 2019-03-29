@@ -26,7 +26,8 @@ export class MM {
             onMounted: null,
             onSelect: null,
             showBreadcrumb: true,
-            height: null
+            height: null,
+            lang:{},
         };
     }
 
@@ -65,6 +66,11 @@ export class MM {
          * Init api
          */
         Vue.prototype.$api = new Api(this.options.api);
+        
+        /*
+         * Init Lang
+         */
+        // Vue.prototype.$lang = this.options.lang;
 
         /*
          * Init Vuex
@@ -76,7 +82,8 @@ export class MM {
                 mm,
                 options: this.options,
                 path: this.options.basePath + this.options.path,
-                selected: selected
+                selected: selected,
+                'lang':  this.options.lang,
             },
             mutations: {
                 resetSelected(state) {

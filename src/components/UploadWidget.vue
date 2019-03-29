@@ -17,7 +17,7 @@
                     class="animated fadeIn"
                 >
                     <svg class="upload-widget-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43"><path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"/></svg>
-                    <label v-bind:for="fileInputId"><strong>Choose files</strong> <span>or drag it here</span>.</label>
+                    <label v-bind:for="fileInputId"><strong>{{ lang.choose_files }}</strong></label>
                     <input v-on:change="onSubmit" v-bind:id="fileInputId" ref="fileInput" type="file" name="files[]" multiple />
                 </form>
             </div>
@@ -25,7 +25,7 @@
         </template>
         <template v-else>
 
-            <div class="alert alert-warning">Your browser does not support drag & drop file upload.</div>
+            <div class="alert alert-warning">{{ lang.choose_files_error }}</div>
 
         </template>
 
@@ -44,7 +44,11 @@ export default {
             advancedUpload: false,
             loading: false,
             dragOver: false,
-            errors: []
+            errors: [],
+            lang: {
+                choose_files: 'Choose files or drag it here.',
+                choose_files_error: 'Your browser does not support drag & drop file upload.'
+            },
         };
     },
     props: ['path'],
@@ -58,6 +62,9 @@ export default {
     },
     mounted() {
         this.advancedUpload = this.isAdvancedUpload();
+        const language =  this.mmc.options.lang;
+        if(language.choose_files) this.lang.choose_files = language.choose_files;
+        if(language.choose_files_error) this.lang.choose_files_error = language.choose_files_error;
     },
     methods: {
         /**
