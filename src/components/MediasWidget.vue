@@ -6,7 +6,7 @@
 
             <div class="alert alert-warning animated fadeIn">
                 {{ error }}
-                <p><button v-on:click.prevent="refresh()" class="btn btn-primary"><i class="fa fa-fw fa-refresh"></i> Click here to retry</button></p>
+                <p><button v-on:click.prevent="refresh()" class="btn btn-primary"><i class="fa fa-fw fa-refresh"></i> {{ lang.retry }}</button></p>
             </div>
 
         </template>
@@ -53,14 +53,14 @@
             <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
                 <div v-if="showContextMenu" class="context-menu" v-bind:style="contextMenuStyle">
                     <ul v-if="contextMenuFile.type=='dir'">
-                        <li><a v-on:click.prevent="onMediaClick(contextMenuFile)" href="#"><i class="fa fa-fw fa-folder-open"></i> Open</a></li>
-                        <li><a v-on:click.prevent="mmc.toggleDetailsOn(contextMenuFile)" href="#"><i class="fa fa-fw fa-info-circle"></i> Details</a></li>
+                        <li><a v-on:click.prevent="onMediaClick(contextMenuFile)" href="#"><i class="fa fa-fw fa-folder-open"></i>{{ lang.open }}</a></li>
+                        <li><a v-on:click.prevent="mmc.toggleDetailsOn(contextMenuFile)" href="#"><i class="fa fa-fw fa-info-circle"></i>{{ lang.details }}</a></li>
                     </ul>
                     <ul v-else>
-                        <li v-if="mmc.isSelected(contextMenuFile)"><a v-on:click.prevent="mmc.unselectFile(contextMenuFile)" href="#"><i class="fa fa-fw fa-times"></i> Unselect</a></li>
-                        <li v-else><a v-on:click.prevent="mmc.selectFile(contextMenuFile)" href="#"><i class="fa fa-fw fa-check"></i> Select</a></li>
-                        <li><a v-on:click.prevent="mmc.toggleDetailsOn(contextMenuFile)" href="#"><i class="fa fa-fw fa-info-circle"></i> Details</a></li>
-                        <li><a v-bind:href="$api.downloadUrl(contextMenuFile)"><i class="fa fa-fw fa-download"></i> Download</a></li>
+                        <li v-if="mmc.isSelected(contextMenuFile)"><a v-on:click.prevent="mmc.unselectFile(contextMenuFile)" href="#"><i class="fa fa-fw fa-times"></i>{{ lang.unselect }}</a></li>
+                        <li v-else><a v-on:click.prevent="mmc.selectFile(contextMenuFile)" href="#"><i class="fa fa-fw fa-check"></i>{{ lang.select }}</a></li>
+                        <li><a v-on:click.prevent="mmc.toggleDetailsOn(contextMenuFile)" href="#"><i class="fa fa-fw fa-info-circle"></i>{{ lang.details }}</a></li>
+                        <li><a v-bind:href="$api.downloadUrl(contextMenuFile)"><i class="fa fa-fw fa-download"></i>{{ lang.download }}</a></li>
                     </ul>
                 </div>
             </transition>
@@ -86,7 +86,16 @@ export default {
             contextMenuFile: {},
             contextMenuX: 0,
             contextMenuY: 0,
-            showContextMenu: false
+            showContextMenu: false,
+            lang: {
+                details: 'Details',
+                open: 'Open',
+                download: 'Download',
+                unselect: 'Unselect',
+                select: 'Select',
+                close: 'Close',
+                retry: 'Click here to retry'
+            },
         };
     },
     props: [ 'path' ],
@@ -118,6 +127,14 @@ export default {
     },
     mounted() {
         this.refresh();
+        const language =  this.mmc.options.lang;
+        if(language.details) this.lang.details = language.details;
+        if(language.open) this.lang.open = language.open;
+        if(language.download) this.lang.download = language.download;
+        if(language.unselect) this.lang.unselect = language.unselect;
+        if(language.select) this.lang.select = language.select;
+        if(language.close) this.lang.close = language.close;
+        if(language.retry) this.lang.retry = language.retry;
     },
     methods: {
         refresh() {

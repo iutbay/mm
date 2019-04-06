@@ -23,7 +23,7 @@ export default class Api {
     }
 
     list(path) {
-        return this.axios.get(this.options.listUrl, { params: { path: this.path } });
+        return this.axios.get(this.options.listUrl, { params: { path: path } });
     }
 
     upload(data, config) {

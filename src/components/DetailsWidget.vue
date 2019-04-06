@@ -4,7 +4,7 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                Media Details
+                {{ lang.media_details }}
                 <button v-on:click="onClose" type="button" class="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,29 +20,29 @@
                                     <i v-bind:class="mmc.faIconClass(file)"></i>
                                 </div>
                             </td>
-                            <th>Name</th>
+                            <th>{{ lang.name }}</th>
                             <td>{{ file.basename }}</td>
                         </tr>
                         <tr>
-                            <th>Path</th>
+                            <th>{{ lang.path }}</th>
                             <td>{{ file.path }}</td>
                         </tr>
                         <tr v-if="file.timestamp">
-                            <th>Date</th>
+                            <th>{{ lang.date }}</th>
                             <td>{{ file.timestamp }}</td>
                         </tr>
                         <tr v-if="file.size">
-                            <th>Size</th>
+                            <th>{{ lang.size }}</th>
                             <td>{{ file.size }}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p class="buttons">
-                    <button v-on:click.prevent="onClose" class="btn btn-default btn-sm" role="button"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+                    <button v-on:click.prevent="onClose" class="btn btn-default btn-sm" role="button"><i class="fa fa-times" aria-hidden="true"></i>{{ lang.close }}</button>
                     <template v-if="file.type!='dir'">
-                        <a v-if="$api.downloadUrl(file)" v-bind:href="$api.downloadUrl(file)" class="btn btn-primary btn-sm" role="button"><i class="fa fa-download" aria-hidden="true"></i> Download</a>
-                        <button v-if="mmc.isSelected(file)" v-on:click.prevent="onUnselect"class="btn btn-primary btn-sm" role="button"><i class="fa fa-times" aria-hidden="true"></i> Unselect</button>
-                        <button v-else v-on:click.prevent="onSelect"class="btn btn-primary btn-sm" role="button"><i class="fa fa-check" aria-hidden="true"></i> Select</button>
+                        <a v-if="$api.downloadUrl(file)" v-bind:href="$api.downloadUrl(file)" class="btn btn-primary btn-sm" role="button"><i class="fa fa-download" aria-hidden="true"></i> {{ lang.download}}</a>
+                        <button v-if="mmc.isSelected(file)" v-on:click.prevent="onUnselect"class="btn btn-primary btn-sm" role="button"><i class="fa fa-times" aria-hidden="true"></i> {{  lang.unselect }}</button>
+                        <button v-else v-on:click.prevent="onSelect"class="btn btn-primary btn-sm" role="button"><i class="fa fa-check" aria-hidden="true"></i>{{ lang.select }}</button>
                     </template>
                 </p>
             </div>
@@ -57,6 +57,21 @@ import { mapState } from 'vuex';
 
 export default {
     props: [ 'file' ],
+    data() {
+        return {
+            lang: {
+                media_details: 'Media Details',
+                name: 'Name',
+                path: 'Path',
+                date: 'Date',
+                size: 'Size',
+                download: 'Download',
+                unselect: 'Unselect',
+                select: 'Select',
+                close: 'Close'
+            },
+        };
+    },
     computed: {
         ...mapState({
             options: state => state.options
@@ -64,6 +79,18 @@ export default {
         mmc() {
             return this.$root.$mmc;
         }
+    },
+    mounted() {
+        const language =  this.mmc.options.lang;
+        if(language.media_details) this.lang.media_details = language.media_details;
+        if(language.name) this.lang.name = language.name;
+        if(language.path) this.lang.path = language.path;
+        if(language.date) this.lang.date = language.date;
+        if(language.size) this.lang.size = language.size;
+        if(language.download) this.lang.download = language.download;
+        if(language.unselect) this.lang.unselect = language.unselect;
+        if(language.select) this.lang.select = language.select;
+        if(language.close) this.lang.close = language.close;
     },
     methods: {
         onSelect() {
